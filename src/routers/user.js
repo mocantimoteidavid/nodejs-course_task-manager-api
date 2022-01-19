@@ -19,6 +19,7 @@ router.post('/users', async (req, res) => {
         const token = await user.generateAuthToken();
         res.status(201).send({ user, token });
     } catch (e) {
+        console.log(e);
         res.status(400).send(e);
     }
 })
@@ -63,8 +64,6 @@ router.post('/users/logout', authMiddleware, async (req, res) => {
     }
 })
 
-
-
 router.get('/users/me', authMiddleware, async (req, res) => {
     res.send(req.user);
 });
@@ -102,7 +101,7 @@ router.patch('/users/me', authMiddleware, async (req, res) => {
 router.delete('/users/me', authMiddleware, async (req, res) => {
     try {
         await req.user.remove();
-        res.send(req.user);
+        res.status(200).send(req.user);
     } catch (e) {
         res.status(500).send(e);
     }

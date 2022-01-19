@@ -14,7 +14,7 @@ const auth = async (req, res, next) => {
         req.token = token;
         req.user = user;
     } catch (e) {
-        res.status(401).send({ error: 'Unable to log you in' });
+        return res.status(401).send({ error: 'Unable to log you in' });
     }
 
     next();
